@@ -45,6 +45,11 @@ public class Sku implements Serializable {
      */
     private String description = "";
 
+    /**
+     * Signature of Purchase, BASE64 encoded
+     */
+    private String dataSignature = "";
+
     public String getPriceAmountMicros() {
         return priceAmountMicros;
     }
