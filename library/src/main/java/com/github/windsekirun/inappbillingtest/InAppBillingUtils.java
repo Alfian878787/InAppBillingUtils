@@ -76,6 +76,16 @@ public class InAppBillingUtils {
     }
 
     /**
+     * Purchase specific 'inapp' item, developerPayload generated automatically
+     * @param productId
+     * @throws RemoteException
+     * @throws IntentSender.SendIntentException
+     */
+    public void purchase(String productId) throws RemoteException, IntentSender.SendIntentException {
+        purchase(productId, "inapp");
+    }
+
+    /**
      * Purchase specific item, developerPayload generated automatically.
      * @param productId to purchase
      * @param type inapp or sub
