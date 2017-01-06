@@ -19,8 +19,6 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 
-import com.github.windsekirun.inappbillingtest.model.PurchaseState;
-
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -48,7 +46,7 @@ class Security {
     /**
      * Verifies that the data was signed with the given signature, and returns
      * the verified purchase. The data is in JSON format and signed
-     * with a private key. The data also contains the {@link PurchaseState}
+     * with a private key. The data also contains the purchaseState
      * and product ID of the purchase.
      * @param productId the product Id used for debug validation.
      * @param base64PublicKey the base64-encoded public key to use for verifying.

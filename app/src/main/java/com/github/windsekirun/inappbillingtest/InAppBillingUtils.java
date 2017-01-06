@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * InAppBillingUtils
@@ -72,6 +73,18 @@ public class InAppBillingUtils {
         if (mService != null) {
            activity.unbindService(mServiceConn);
         }
+    }
+
+    /**
+     * Purchase specific item, developerPayload generated automatically.
+     * @param productId to purchase
+     * @param type inapp or sub
+     * @throws RemoteException
+     * @throws IntentSender.SendIntentException
+     */
+    public void purchase(String productId, String type) throws RemoteException, IntentSender.SendIntentException {
+        String developerPayload = generateDeveloperPayload(productId, type);
+        purchase(productId, type, developerPayload);
     }
 
     /**
@@ -162,13 +175,29 @@ public class InAppBillingUtils {
                 }
             }
         }
-
         return skuArrayList;
     }
 
     /**
+     * generate developerpayload using nonce(UUID)
+     * @param productId productId of product
+     * @param type inapp or sub
+     * @return random generated developerPayload
+     */
+    private String generateDeveloperPayload(String productId,  String type) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(productId)
+                .append(":")
+                .append(type)
+                .append(":")
+                .append(UUID.randomUUID().toString().replaceAll("-", ""));
+
+        return builder.toString();
+    }
+
+    /**
      * Checking transaction is valid.
-     * @param transaction
+     * @param transaction transcation object
      * @return true - valid, false - invalid
      */
     public boolean isValidTransaction(Transaction transaction) {
@@ -186,7 +215,13 @@ public class InAppBillingUtils {
         return (object.has(jsonName) ? object.getString(jsonName) : "");
     }
 
-
+    /**
+     * verify signature using BASE64
+     * @param productId productId
+     * @param purchaseData purchaseData (full-jsonStr)
+     * @param dataSignature signature key
+     * @return value, true - valid, false - invalid
+     */
     private boolean verifyPurchaseSignature(String productId, String purchaseData, String dataSignature) {
         try {
             return TextUtils.isEmpty(signatureBase64) || Security.verifyPurchase(productId, signatureBase64, purchaseData, dataSignature);
