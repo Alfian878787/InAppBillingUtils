@@ -40,12 +40,12 @@ public class Transaction implements Serializable {
     /**
      * The time the product was purchased, in milliseconds since the epoch (Jan 1, 1970).
      */
-    private String purchaseTime;
+    private long purchaseTime;
 
     /**
      * The purchase state of the order. Possible values are 0 (purchased), 1 (canceled), or 2 (refunded).
      */
-    private String purchaseState;
+    private int purchaseState;
 
     /**
      * A developer-specified string that contains supplemental information about an order. You can specify a value for this field when you make a getBuyIntent request.
@@ -61,6 +61,16 @@ public class Transaction implements Serializable {
      * Full-string of Transaction
      */
     private String purchaseInfo;
+
+    private String dataSignature;
+
+    public String getDataSignature() {
+        return dataSignature;
+    }
+
+    public void setDataSignature(String dataSignature) {
+        this.dataSignature = dataSignature;
+    }
 
     public String getAutoRenewing() {
         return autoRenewing;
@@ -86,11 +96,11 @@ public class Transaction implements Serializable {
         return purchaseInfo;
     }
 
-    public String getPurchaseState() {
+    public int getPurchaseState() {
         return purchaseState;
     }
 
-    public String getPurchaseTime() {
+    public long getPurchaseTime() {
         return purchaseTime;
     }
 
@@ -122,11 +132,11 @@ public class Transaction implements Serializable {
         this.purchaseInfo = purchaseInfo;
     }
 
-    public void setPurchaseState(String purchaseState) {
+    public void setPurchaseState(int purchaseState) {
         this.purchaseState = purchaseState;
     }
 
-    public void setPurchaseTime(String purchaseTime) {
+    public void setPurchaseTime(long purchaseTime) {
         this.purchaseTime = purchaseTime;
     }
 
