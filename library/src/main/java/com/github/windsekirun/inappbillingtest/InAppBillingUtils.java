@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -16,7 +15,6 @@ import com.android.vending.billing.IInAppBillingService;
 import com.github.windsekirun.inappbillingtest.model.Sku;
 import com.github.windsekirun.inappbillingtest.model.Transaction;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -32,9 +30,9 @@ public class InAppBillingUtils {
     private String developerPayload = "";
     private String signatureBase64;
 
-    public static final int PURCHASE_SUCCESS = 0;
-    public static final int PURCHASE_FAILED_UNKNOWN = -1;
-    public static final int PURCHASE_FAILED_INVALID = -2;
+    @SuppressWarnings("unused") public static final int PURCHASE_SUCCESS = 0;
+    private static final int PURCHASE_FAILED_UNKNOWN = -1;
+    private static final int PURCHASE_FAILED_INVALID = -2;
 
     public InAppBillingUtils(Activity activity, String licenseKey, OnInAppBillingCallback callback) {
         this.activity = activity;
@@ -42,9 +40,9 @@ public class InAppBillingUtils {
         this.signatureBase64 = licenseKey;
     }
 
-    IInAppBillingService mService;
+    private IInAppBillingService mService;
 
-    ServiceConnection mServiceConn = new ServiceConnection() {
+    private ServiceConnection mServiceConn = new ServiceConnection() {
         @Override
         public void onServiceDisconnected(ComponentName name) {
             mService = null;
@@ -77,11 +75,10 @@ public class InAppBillingUtils {
 
     /**
      * Purchase specific 'inapp' item, developerPayload generated automatically
-     * @param productId
-     * @throws RemoteException
-     * @throws IntentSender.SendIntentException
+     * @param productId to purchase
      */
-    public void purchase(String productId) throws RemoteException, IntentSender.SendIntentException {
+    @SuppressWarnings("unused")
+    public void purchase(String productId) {
         purchase(productId, "inapp");
     }
 
@@ -89,10 +86,8 @@ public class InAppBillingUtils {
      * Purchase specific item, developerPayload generated automatically.
      * @param productId to purchase
      * @param type inapp or sub
-     * @throws RemoteException
-     * @throws IntentSender.SendIntentException
      */
-    public void purchase(String productId, String type) throws RemoteException, IntentSender.SendIntentException {
+    private void purchase(String productId, String type) {
         String developerPayload = generateDeveloperPayload(productId, type);
         purchase(productId, type, developerPayload);
     }
@@ -102,18 +97,29 @@ public class InAppBillingUtils {
      * @param productId to purchase
      * @param type inapp or sub
      * @param developerPayload for secure working.
-     * @throws RemoteException
-     * @throws IntentSender.SendIntentException
      */
-    public void purchase(String productId, String type, String developerPayload) throws RemoteException, IntentSender.SendIntentException {
-        Bundle buyIntentBundle = mService.getBuyIntent(3, activity.getPackageName(), productId, type, developerPayload);
-        this.developerPayload = developerPayload;
-        PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
-        if (pendingIntent != null) {
-            activity.startIntentSenderForResult(pendingIntent.getIntentSender(), 1001, new Intent(), 0, 0, 0);
-        } else {
+    private void purchase(String productId, String type, String developerPayload) {
+        Bundle buyIntentBundle = null;
+        try {
+            buyIntentBundle = mService.getBuyIntent(3, activity.getPackageName(), productId, type, developerPayload);
+        } catch (RemoteException e) {
             callback.purchaseFailed(PURCHASE_FAILED_UNKNOWN);
         }
+        this.developerPayload = developerPayload;
+
+        if (buyIntentBundle != null) {
+            PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
+            if (pendingIntent != null) {
+                try {
+                    activity.startIntentSenderForResult(pendingIntent.getIntentSender(), 1001, new Intent(), 0, 0, 0);
+                } catch (Exception e) {
+                    callback.purchaseFailed(PURCHASE_FAILED_UNKNOWN);
+                }
+            } else {
+                callback.purchaseFailed(PURCHASE_FAILED_UNKNOWN);
+            }
+        }
+
     }
 
     /**
@@ -121,33 +127,36 @@ public class InAppBillingUtils {
      * @param requestCode requestcode
      * @param resultCode resultCode
      * @param data intent
-     * @throws JSONException
      */
-    public void onActivityResult(int requestCode, int resultCode, Intent data) throws JSONException {
+    public void onActivityResult(int requestCode, int resultCode, Intent data)  {
         if (requestCode == 1001 && resultCode == Activity.RESULT_OK && data != null) {
             String jsonStr = data.getStringExtra("INAPP_PURCHASE_DATA");
             String dataSignature = data.getStringExtra("INAPP_DATA_SIGNATURE");
             Transaction transaction = new Transaction();
 
-            JSONObject object = new JSONObject(jsonStr);
-            if (object.getString("developerPayload").equals(developerPayload)) {
-                transaction.setDataSignature(dataSignature);
-                transaction.setPurchaseInfo(jsonStr);
-                transaction.setOrderId(getJString(object, "orderId"));
-                transaction.setPackageName(getJString(object, "packageName"));
-                transaction.setProductId(getJString(object, "productId"));
-                transaction.setPurchaseTime(object.has("purchaseTime") ? object.getLong("purchaseTime") : 0);
-                transaction.setPurchaseState(object.has("purchaseState") ? object.getInt("purchaseState") : 0);
-                transaction.setDeveloperPayload(getJString(object, "developerPayload"));
-                transaction.setPurchaseToken(getJString(object, "purchaseToken"));
+            try {
+                JSONObject object = new JSONObject(jsonStr);
+                if (object.getString("developerPayload").equals(developerPayload)) {
+                    transaction.setDataSignature(dataSignature);
+                    transaction.setPurchaseInfo(jsonStr);
+                    transaction.setOrderId(getJString(object, "orderId"));
+                    transaction.setPackageName(getJString(object, "packageName"));
+                    transaction.setProductId(getJString(object, "productId"));
+                    transaction.setPurchaseTime(object.has("purchaseTime") ? object.getLong("purchaseTime") : 0);
+                    transaction.setPurchaseState(object.has("purchaseState") ? object.getInt("purchaseState") : 0);
+                    transaction.setDeveloperPayload(getJString(object, "developerPayload"));
+                    transaction.setPurchaseToken(getJString(object, "purchaseToken"));
 
-                if (isValidTransaction(transaction)) {
-                    callback.purchaseDone(transaction);
+                    if (isValidTransaction(transaction)) {
+                        callback.purchaseDone(transaction);
+                    } else {
+                        callback.purchaseFailed(PURCHASE_FAILED_INVALID);
+                    }
                 } else {
                     callback.purchaseFailed(PURCHASE_FAILED_INVALID);
                 }
-            } else {
-                callback.purchaseFailed(PURCHASE_FAILED_INVALID);
+            } catch (Exception e) {
+                callback.purchaseFailed(PURCHASE_FAILED_UNKNOWN);
             }
         } else {
             callback.purchaseFailed(PURCHASE_FAILED_UNKNOWN);
@@ -159,31 +168,33 @@ public class InAppBillingUtils {
      *
      * @param items Strings of item's id
      * @return ArrayList of {@link Sku sku}
-     * @throws RemoteException processing failed
-     * @throws JSONException JSION
      */
-    public ArrayList<Sku> getAvailableInappPackage(ArrayList<String> items) throws RemoteException, JSONException {
+    public ArrayList<Sku> getAvailableInappPackage(ArrayList<String> items) {
         ArrayList<Sku> skuArrayList = new ArrayList<>();
         Bundle querySkus = new Bundle();
         querySkus.putStringArrayList("ITEM_ID_LIST", items);
-        Bundle skuDetails = mService.getSkuDetails(3, activity.getPackageName(), "inapp", querySkus);
+        try {
+            Bundle skuDetails = mService.getSkuDetails(3, activity.getPackageName(), "inapp", querySkus);
 
-        int response = skuDetails.getInt("RESPONSE_CODE");
-        if (response == 0) {
-            ArrayList<String> responseList = skuDetails.getStringArrayList("DETAILS_LIST");
-            if (responseList != null) {
-                for (String thisResponse : responseList) {
-                    Sku sku = new Sku();
-                    JSONObject object = new JSONObject(thisResponse);
-                    sku.setDescription(getJString(object, "description"));
-                    sku.setTitle(getJString(object, "title"));
-                    sku.setPrice(getJString(object, "price"));
-                    sku.setPriceAmountMicros(getJString(object, "price_amount_micros"));
-                    sku.setPriceCurrencyCode(getJString(object, "price_currency_code"));
-                    sku.setType(getJString(object, "type"));
-                    sku.setProductId(getJString(object, "productId"));
+            int response = skuDetails.getInt("RESPONSE_CODE");
+            if (response == 0) {
+                ArrayList<String> responseList = skuDetails.getStringArrayList("DETAILS_LIST");
+                if (responseList != null) {
+                    for (String thisResponse : responseList) {
+                        Sku sku = new Sku();
+                        JSONObject object = new JSONObject(thisResponse);
+                        sku.setDescription(getJString(object, "description"));
+                        sku.setTitle(getJString(object, "title"));
+                        sku.setPrice(getJString(object, "price"));
+                        sku.setPriceAmountMicros(getJString(object, "price_amount_micros"));
+                        sku.setPriceCurrencyCode(getJString(object, "price_currency_code"));
+                        sku.setType(getJString(object, "type"));
+                        sku.setProductId(getJString(object, "productId"));
+                    }
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return skuArrayList;
     }
@@ -194,7 +205,8 @@ public class InAppBillingUtils {
      * @param type inapp or sub
      * @return random generated developerPayload
      */
-    private String generateDeveloperPayload(String productId,  String type) {
+    @SuppressWarnings("StringBufferReplaceableByString")
+    private String generateDeveloperPayload(String productId, String type) {
         StringBuilder builder = new StringBuilder();
         builder.append(productId)
                 .append(":")
@@ -210,7 +222,7 @@ public class InAppBillingUtils {
      * @param transaction transcation object
      * @return true - valid, false - invalid
      */
-    public boolean isValidTransaction(Transaction transaction) {
+    private boolean isValidTransaction(Transaction transaction) {
         return verifyPurchaseSignature(transaction.getProductId(), transaction.getPurchaseInfo(), transaction.getDataSignature());
     }
 
@@ -219,10 +231,13 @@ public class InAppBillingUtils {
      * @param object JSONObject object
      * @param jsonName extract key-value
      * @return value, if key is available, it will be return value. otherwise, it will return "" (empty)
-     * @throws JSONException
      */
-    private String getJString(JSONObject object, String jsonName) throws JSONException {
-        return (object.has(jsonName) ? object.getString(jsonName) : "");
+    private String getJString(JSONObject object, String jsonName) {
+        try {
+            return (object.has(jsonName) ? object.getString(jsonName) : "");
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     /**
