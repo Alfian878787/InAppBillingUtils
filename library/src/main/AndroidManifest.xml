@@ -3,7 +3,7 @@
     package="com.github.windsekirun.inappbillingtest">
 
     <application
-        android:allowBackup="true"
-        android:supportsRtl="true"/>
+        android:allowBackup="false"
+        android:supportsRtl="false"/>
 
 </manifest>
