@@ -31,11 +31,7 @@ public class MainActivity extends AppCompatActivity implements InAppBillingUtils
         btn2 = (Button) findViewById(R.id.button2);
         btn3 = (Button) findViewById(R.id.button3);
 
-        utils = new InAppBillingUtils(this, "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmNexkFYgYNj" +
-                "WVH09WsneSgaH52SQrFwPKIwQAK7cqce8ONyHF6azSwvHzSpiEZhLw84WmYf9CU7c3gVfjr6pun/if6Og42Rr+" +
-                "RKxpL1wx3XhpdgXNATRgnpOnXiAr5hHComKjFycsLGAHEOvs7Y8pF3uOF5Rw2XKURYAoqtz0aamuwWcK/frtBMeE" +
-                "xSb/aV8KGTlG6iMIprhUugbZ7LkFWGk+/dHRhnlVgyMhZNwAkVwV6s1gjFtiKR44KTQYzEQ5nNrTz7mpqHEbchShxS" +
-                "s+hfdHRILjdGqgaeeak7Sz0yOrKphvu4i+tyKU1sG76MLNRavQMjgtxkf0iKTlPACGwIDAQAB", this);
+        utils = new InAppBillingUtils(this, "", this);
 
         utils.initInAppBilling();
 
