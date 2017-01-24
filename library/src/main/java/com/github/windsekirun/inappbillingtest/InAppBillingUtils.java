@@ -87,7 +87,7 @@ public class InAppBillingUtils {
      * @param productId to purchase
      * @param type inapp or sub
      */
-    private void purchase(String productId, String type) {
+    public void purchase(String productId, String type) {
         String developerPayload = generateDeveloperPayload(productId, type);
         purchase(productId, type, developerPayload);
     }
@@ -98,7 +98,7 @@ public class InAppBillingUtils {
      * @param type inapp or sub
      * @param developerPayload for secure working.
      */
-    private void purchase(String productId, String type, String developerPayload) {
+    public void purchase(String productId, String type, String developerPayload) {
         Bundle buyIntentBundle = null;
         try {
             buyIntentBundle = mService.getBuyIntent(3, activity.getPackageName(), productId, type, developerPayload);
@@ -206,7 +206,7 @@ public class InAppBillingUtils {
      * @return random generated developerPayload
      */
     @SuppressWarnings("StringBufferReplaceableByString")
-    private String generateDeveloperPayload(String productId, String type) {
+    public String generateDeveloperPayload(String productId, String type) {
         StringBuilder builder = new StringBuilder();
         builder.append(productId)
                 .append(":")
@@ -222,7 +222,7 @@ public class InAppBillingUtils {
      * @param transaction transcation object
      * @return true - valid, false - invalid
      */
-    private boolean isValidTransaction(Transaction transaction) {
+    public boolean isValidTransaction(Transaction transaction) {
         return verifyPurchaseSignature(transaction.getProductId(), transaction.getPurchaseInfo(), transaction.getDataSignature());
     }
 
