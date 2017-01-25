@@ -13,7 +13,7 @@ import com.github.windsekirun.inappbillingtest.model.Transaction;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements InAppBillingUtils.OnInAppBillingCallback {
+public class MainActivity extends AppCompatActivity implements InAppBillingUtils.OnInAppBillingCallback, InAppBillingUtils.OnInAppConsumeCallback {
     InAppBillingUtils utils;
     String item1Sku = "item_1";
     String item2Sku = "item_2";
@@ -31,7 +31,9 @@ public class MainActivity extends AppCompatActivity implements InAppBillingUtils
         btn2 = (Button) findViewById(R.id.button2);
         btn3 = (Button) findViewById(R.id.button3);
 
-        utils = new InAppBillingUtils(this, "", this);
+        utils = new InAppBillingUtils(this, "");
+        utils.setOnInAppBillingCallback(this);
+        utils.setOnInAppConsumeCallback(this);
 
         utils.initInAppBilling();
 
@@ -92,5 +94,18 @@ public class MainActivity extends AppCompatActivity implements InAppBillingUtils
     @Override
     public void purchaseFailed(int responseCode) {
         Log.d("Purchase", "Failed!!");
+    }
+
+    @Override
+    public void consumeDone(Transaction transaction) {
+        Log.d("Consume", "Consume success!!");
+        Log.d("Consume", transaction.getPurchaseInfo());
+        Log.d("Consume", transaction.getDataSignature());
+        Log.d("Consume", transaction.getPurchaseToken());
+    }
+
+    @Override
+    public void consumeFailed(int responseCode, Transaction transaction) {
+        Log.d("Consume", "Failed!!");
     }
 }

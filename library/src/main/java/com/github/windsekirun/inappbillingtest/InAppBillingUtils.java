@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import com.android.vending.billing.IInAppBillingService;
 import com.github.windsekirun.inappbillingtest.model.Sku;
 import com.github.windsekirun.inappbillingtest.model.Transaction;
+import com.github.windsekirun.inappbillingtest.tool.NaraeAsync;
 
 import org.json.JSONObject;
 
@@ -26,7 +27,8 @@ import java.util.UUID;
  */
 public class InAppBillingUtils {
     private Activity activity;
-    private OnInAppBillingCallback callback;
+    private OnInAppBillingCallback billingCallback;
+    private OnInAppConsumeCallback consumeCallback;
     private String developerPayload = "";
     private String signatureBase64;
 
@@ -34,9 +36,8 @@ public class InAppBillingUtils {
     private static final int PURCHASE_FAILED_UNKNOWN = -1;
     private static final int PURCHASE_FAILED_INVALID = -2;
 
-    public InAppBillingUtils(Activity activity, String licenseKey, OnInAppBillingCallback callback) {
+    public InAppBillingUtils(Activity activity, String licenseKey) {
         this.activity = activity;
-        this.callback = callback;
         this.signatureBase64 = licenseKey;
     }
 
@@ -74,6 +75,22 @@ public class InAppBillingUtils {
     }
 
     /**
+     * Using when try to purchase un-consumable item
+     * @param callback callback object
+     */
+    public void setOnInAppBillingCallback(OnInAppBillingCallback callback) {
+        this.billingCallback = callback;
+    }
+
+    /**
+     * Using when try to purchase consumable item, within using AppBillingUtils.setOnInAppBillingCallback(OnInAppBillingCallback)
+     * @param callback callback object
+     */
+    public void setOnInAppConsumeCallback(OnInAppConsumeCallback callback) {
+        this.consumeCallback = callback;
+    }
+
+    /**
      * Purchase specific 'inapp' item, developerPayload generated automatically
      * @param productId to purchase
      */
@@ -103,7 +120,7 @@ public class InAppBillingUtils {
         try {
             buyIntentBundle = mService.getBuyIntent(3, activity.getPackageName(), productId, type, developerPayload);
         } catch (RemoteException e) {
-            callback.purchaseFailed(PURCHASE_FAILED_UNKNOWN);
+            billingCallback.purchaseFailed(PURCHASE_FAILED_UNKNOWN);
         }
         this.developerPayload = developerPayload;
 
@@ -113,17 +130,45 @@ public class InAppBillingUtils {
                 try {
                     activity.startIntentSenderForResult(pendingIntent.getIntentSender(), 1001, new Intent(), 0, 0, 0);
                 } catch (Exception e) {
-                    callback.purchaseFailed(PURCHASE_FAILED_UNKNOWN);
+                    billingCallback.purchaseFailed(PURCHASE_FAILED_UNKNOWN);
                 }
             } else {
-                callback.purchaseFailed(PURCHASE_FAILED_UNKNOWN);
+                billingCallback.purchaseFailed(PURCHASE_FAILED_UNKNOWN);
             }
         }
 
     }
 
     /**
-     * Purchase Result callback, just pass Activity's onActivityResult.
+     * Consume specific item which consumable item
+     * @param transaction transaction object
+     */
+    public void consumePurchase(final Transaction transaction) {
+        if (transaction != null) {
+            new NaraeAsync(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        int response = mService.consumePurchase(3, activity.getPackageName(), transaction.getPurchaseToken());
+                        if (response == 0) {
+                            if (consumeCallback != null) {
+                                consumeCallback.consumeDone(transaction);
+                            }
+                        } else {
+                            if (consumeCallback != null) {
+                                consumeCallback.consumeFailed(response, transaction);
+                            }
+                        }
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).execute();
+        }
+    }
+
+    /**
+     * Purchase Result billingCallback, just pass Activity's onActivityResult.
      * @param requestCode requestcode
      * @param resultCode resultCode
      * @param data intent
@@ -148,18 +193,18 @@ public class InAppBillingUtils {
                     transaction.setPurchaseToken(getJString(object, "purchaseToken"));
 
                     if (isValidTransaction(transaction)) {
-                        callback.purchaseDone(transaction);
+                        billingCallback.purchaseDone(transaction);
                     } else {
-                        callback.purchaseFailed(PURCHASE_FAILED_INVALID);
+                        billingCallback.purchaseFailed(PURCHASE_FAILED_INVALID);
                     }
                 } else {
-                    callback.purchaseFailed(PURCHASE_FAILED_INVALID);
+                    billingCallback.purchaseFailed(PURCHASE_FAILED_INVALID);
                 }
             } catch (Exception e) {
-                callback.purchaseFailed(PURCHASE_FAILED_UNKNOWN);
+                billingCallback.purchaseFailed(PURCHASE_FAILED_UNKNOWN);
             }
         } else {
-            callback.purchaseFailed(PURCHASE_FAILED_UNKNOWN);
+            billingCallback.purchaseFailed(PURCHASE_FAILED_UNKNOWN);
         }
     }
 
@@ -257,5 +302,10 @@ public class InAppBillingUtils {
     public interface OnInAppBillingCallback {
         void purchaseDone(Transaction transaction);
         void purchaseFailed(int responseCode);
+    }
+
+    public interface OnInAppConsumeCallback {
+        void consumeDone(Transaction transaction);
+        void consumeFailed(int responseCode, Transaction transaction);
     }
 }
