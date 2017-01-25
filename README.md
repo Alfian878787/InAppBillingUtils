@@ -12,7 +12,7 @@ All methods of this library are fully-documented.
 if you find any mistakes of document, feel free to notice me
 
 ### Sample App
-This library provided [SampleActivity](https://github.com/PyxisDev/InAppBillingUtils/blob/master/sample/src/main/java/com/github/windsekirun/inappbillingutilssample/MainActivity.java)
+This library provide [SampleActivity](https://github.com/PyxisDev/InAppBillingUtils/blob/master/sample/src/main/java/com/github/windsekirun/inappbillingutilssample/MainActivity.java)
 
 ### Version
 * v 1.1 (2017.01.25) - implementing 'consumePurchase' in [InAppBillingUtils](https://github.com/PyxisDev/InAppBillingUtils/blob/master/library/src/main/java/com/github/windsekirun/inappbillingtest/InAppBillingUtils.java)
