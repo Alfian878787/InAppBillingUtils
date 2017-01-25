@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * Transaction
- * Created by Donggilseo on 2017-01-05.
+ * Created by WindSekirun on 2017-01-05.
  */
 public class Transaction implements Serializable {
     /**
@@ -17,52 +17,55 @@ public class Transaction implements Serializable {
      * as long as the grace period has not lapsed.
      * The next billing date is extended dynamically every day until the end of the grace period or until the user fixes their payment method.
      */
-    private String autoRenewing;
+    protected String autoRenewing;
 
     /**
      * A unique order identifier for the transaction.
      * This identifier corresponds to the Google payments order ID.
      * If the order is a test purchase made through the In-app Billing Sandbox, orderId is blank.
      */
-    private String orderId;
+    protected String orderId;
 
     /**
      * The application package from which the purchase originated.
      */
-    private String packageName;
+    protected String packageName;
 
     /**
      * The item's product identifier.
      * Every item has a product ID, which you must specify in the application's product list on the Google Play developer console.
      */
-    private String productId;
+    protected String productId;
 
     /**
      * The time the product was purchased, in milliseconds since the epoch (Jan 1, 1970).
      */
-    private long purchaseTime;
+    protected long purchaseTime;
 
     /**
      * The purchase state of the order. Possible values are 0 (purchased), 1 (canceled), or 2 (refunded).
      */
-    private int purchaseState;
+    protected int purchaseState;
 
     /**
      * A developer-specified string that contains supplemental information about an order. You can specify a value for this field when you make a getBuyIntent request.
      */
-    private String developerPayload;
+    protected String developerPayload;
 
     /**
      * A token that uniquely identifies a purchase for a given item and user pair.
      */
-    private String purchaseToken;
+    protected String purchaseToken;
 
     /**
      * Full-string of Transaction
      */
-    private String purchaseInfo;
+    protected String purchaseInfo;
 
-    private String dataSignature;
+    /**
+     * Data Signature value to execute valid-check processing
+     */
+    protected String dataSignature;
 
     public String getDataSignature() {
         return dataSignature;

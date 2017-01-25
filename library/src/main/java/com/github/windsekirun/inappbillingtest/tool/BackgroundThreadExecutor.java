@@ -5,6 +5,10 @@ import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+/**
+ * BackgroundThreadExecutor
+ * Created by WindSekirun on 2017-01-05.
+ */
 public class BackgroundThreadExecutor implements BackgroundExecutor {
     private static Map<ExecutorId, Executor> sCachedExecutors = new HashMap<>();
     public String settingTaskType;

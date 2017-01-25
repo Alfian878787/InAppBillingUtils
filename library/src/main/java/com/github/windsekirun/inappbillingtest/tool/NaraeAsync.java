@@ -1,5 +1,9 @@
 package com.github.windsekirun.inappbillingtest.tool;
 
+/**
+ * BackgroundExecutor
+ * Created by WindSekirun on 2017-01-05.
+ */
 public class NaraeAsync {
     private static final int DEFAULT_POOL_SIZE = 3;
     private static final String DEFAULT_TASK_TYPE = "Narae.MOE_123123";;
@@ -7,7 +11,7 @@ public class NaraeAsync {
     private int settingPoolSize = DEFAULT_POOL_SIZE;
     private String settingTaskType = DEFAULT_TASK_TYPE;
 
-    Runnable runnable;
+    private Runnable runnable;
 
     public NaraeAsync(Runnable runnable) {
         this.runnable = runnable;

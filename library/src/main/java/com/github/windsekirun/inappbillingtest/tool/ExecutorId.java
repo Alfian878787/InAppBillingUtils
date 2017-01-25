@@ -1,5 +1,9 @@
 package com.github.windsekirun.inappbillingtest.tool;
 
+/**
+ * ExecutorId
+ * Created by WindSekirun on 2017-01-05.
+ */
 public class ExecutorId {
 
     private final int mThreadPoolSize;
