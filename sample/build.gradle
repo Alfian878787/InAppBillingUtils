@@ -3,15 +3,6 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion '25.0.2'
-    signingConfigs {
-
-        release {
-            keyAlias 'pyxis'
-            keyPassword 'spdlxm6758'
-            storeFile file('pyxis.jks')
-            storePassword 'spdlxm6758'
-        }
-    }
     defaultConfig {
         applicationId "com.github.windsekirun.inappbillingutilssample"
         minSdkVersion 16
