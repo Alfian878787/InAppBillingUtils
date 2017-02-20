@@ -44,6 +44,11 @@ public class Sku implements Serializable {
      * Description of the product.
      */
     protected String description = "";
+    
+     public String toString() {
+        return "productId: " + productId + " type: " + type + " price: " + price + " priceAmountMicros: " + priceAmountMicros +
+                " priceCurrencyCode: " + priceCurrencyCode + " title: " + title + " description: " + description;
+    }
 
     public String getPriceAmountMicros() {
         return priceAmountMicros;
