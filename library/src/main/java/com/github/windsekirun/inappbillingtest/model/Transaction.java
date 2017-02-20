@@ -66,6 +66,12 @@ public class Transaction implements Serializable {
      * Data Signature value to execute valid-check processing
      */
     protected String dataSignature;
+    
+    public String toString() {
+        return "autoRenewing: " + autoRenewing + " orderId: " + orderId + " packageName: " + packageName +
+                " productId: " + productId + " purchaseTime: " + purchaseTime + " purchaseState: " + purchaseState +
+                " developerPayload: " + developerPayload + " purchaseToken: " + purchaseToken + " dataSignature: " + dataSignature;
+    }
 
     public String getDataSignature() {
         return dataSignature;
