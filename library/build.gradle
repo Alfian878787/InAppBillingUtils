@@ -15,3 +15,21 @@ android {
 
     }
 }
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    destinationDir = file("../docs/")
+    excludes += '**/BuildConfig.java'
+    excludes += '**/R.java'
+    options.encoding "utf-8"
+
+    title = ""
+
+    options.bootClasspath new File(System.getenv('JAVA_HOME') + "/jre/lib/rt.jar")
+    options.docletpath = [ project.rootProject.file('./doclava/doclava-1.0.6.jar') ]
+    options.doclet 'com.google.doclava.Doclava'
+    options.addStringOption 'hdf project.name', 'JavaDoc Test'
+    options.addStringOption 'templatedir', project.rootProject.file('./doclava/template').absolutePath
+
+}

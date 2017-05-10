@@ -1,0 +1,1177 @@
+<api>
+<package name="com.github.windsekirun.inappbillingtest"
+>
+<class name="InAppBillingUtils"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="InAppBillingUtils"
+ type="com.github.windsekirun.inappbillingtest.InAppBillingUtils"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="activity" type="android.app.Activity">
+</parameter>
+<parameter name="licenseKey" type="java.lang.String">
+</parameter>
+</constructor>
+<method name="consumePurchase"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="transaction" type="com.github.windsekirun.inappbillingtest.model.Transaction">
+</parameter>
+</method>
+<method name="generateDeveloperPayload"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="productId" type="java.lang.String">
+</parameter>
+<parameter name="type" type="java.lang.String">
+</parameter>
+</method>
+<method name="getAvailableInappPackage"
+ return="java.util.ArrayList&lt;com.github.windsekirun.inappbillingtest.model.Sku&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="items" type="java.util.ArrayList&lt;java.lang.String&gt;">
+</parameter>
+</method>
+<method name="initInAppBilling"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="isValidTransaction"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="transaction" type="com.github.windsekirun.inappbillingtest.model.Transaction">
+</parameter>
+</method>
+<method name="onActivityResult"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="requestCode" type="int">
+</parameter>
+<parameter name="resultCode" type="int">
+</parameter>
+<parameter name="data" type="android.content.Intent">
+</parameter>
+</method>
+<method name="purchase"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="productId" type="java.lang.String">
+</parameter>
+</method>
+<method name="purchase"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="productId" type="java.lang.String">
+</parameter>
+<parameter name="type" type="java.lang.String">
+</parameter>
+</method>
+<method name="purchase"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="productId" type="java.lang.String">
+</parameter>
+<parameter name="type" type="java.lang.String">
+</parameter>
+<parameter name="developerPayload" type="java.lang.String">
+</parameter>
+</method>
+<method name="setOnInAppBillingCallback"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="callback" type="com.github.windsekirun.inappbillingtest.InAppBillingUtils.OnInAppBillingCallback">
+</parameter>
+</method>
+<method name="setOnInAppConsumeCallback"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="callback" type="com.github.windsekirun.inappbillingtest.InAppBillingUtils.OnInAppConsumeCallback">
+</parameter>
+</method>
+<method name="unBindInAppBilling"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<field name="PURCHASE_SUCCESS"
+ type="int"
+ transient="false"
+ volatile="false"
+ value="0"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+</class>
+<interface name="InAppBillingUtils.OnInAppBillingCallback"
+ abstract="true"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="purchaseDone"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="transaction" type="com.github.windsekirun.inappbillingtest.model.Transaction">
+</parameter>
+</method>
+<method name="purchaseFailed"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="responseCode" type="int">
+</parameter>
+</method>
+</interface>
+<interface name="InAppBillingUtils.OnInAppConsumeCallback"
+ abstract="true"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="consumeDone"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="transaction" type="com.github.windsekirun.inappbillingtest.model.Transaction">
+</parameter>
+</method>
+<method name="consumeFailed"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="responseCode" type="int">
+</parameter>
+<parameter name="transaction" type="com.github.windsekirun.inappbillingtest.model.Transaction">
+</parameter>
+</method>
+</interface>
+<class name="Security"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="Security"
+ type="com.github.windsekirun.inappbillingtest.Security"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="generatePublicKey"
+ return="java.security.PublicKey"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="encodedPublicKey" type="java.lang.String">
+</parameter>
+</method>
+<method name="verify"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="publicKey" type="java.security.PublicKey">
+</parameter>
+<parameter name="signedData" type="java.lang.String">
+</parameter>
+<parameter name="signature" type="java.lang.String">
+</parameter>
+</method>
+<method name="verifyPurchase"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="productId" type="java.lang.String">
+</parameter>
+<parameter name="base64PublicKey" type="java.lang.String">
+</parameter>
+<parameter name="signedData" type="java.lang.String">
+</parameter>
+<parameter name="signature" type="java.lang.String">
+</parameter>
+</method>
+</class>
+</package>
+<package name="com.github.windsekirun.inappbillingtest.model"
+>
+<class name="Sku"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="java.io.Serializable">
+</implements>
+<constructor name="Sku"
+ type="com.github.windsekirun.inappbillingtest.model.Sku"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="getDescription"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getPrice"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getPriceAmountMicros"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getPriceCurrencyCode"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getProductId"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getTitle"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getType"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="setDescription"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="description" type="java.lang.String">
+</parameter>
+</method>
+<method name="setPrice"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="price" type="java.lang.String">
+</parameter>
+</method>
+<method name="setPriceAmountMicros"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="priceAmountMicros" type="java.lang.String">
+</parameter>
+</method>
+<method name="setPriceCurrencyCode"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="priceCurrencyCode" type="java.lang.String">
+</parameter>
+</method>
+<method name="setProductId"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="productId" type="java.lang.String">
+</parameter>
+</method>
+<method name="setTitle"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="title" type="java.lang.String">
+</parameter>
+</method>
+<method name="setType"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="type" type="java.lang.String">
+</parameter>
+</method>
+<field name="description"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+<field name="price"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+<field name="priceAmountMicros"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+<field name="priceCurrencyCode"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+<field name="productId"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+<field name="title"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+<field name="type"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+</class>
+<class name="Transaction"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="java.io.Serializable">
+</implements>
+<constructor name="Transaction"
+ type="com.github.windsekirun.inappbillingtest.model.Transaction"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="getAutoRenewing"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getDataSignature"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getDeveloperPayload"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getOrderId"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getPackageName"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getProductId"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getPurchaseInfo"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getPurchaseState"
+ return="int"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getPurchaseTime"
+ return="long"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getPurchaseToken"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="setAutoRenewing"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="autoRenewing" type="java.lang.String">
+</parameter>
+</method>
+<method name="setDataSignature"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="dataSignature" type="java.lang.String">
+</parameter>
+</method>
+<method name="setDeveloperPayload"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="developerPayload" type="java.lang.String">
+</parameter>
+</method>
+<method name="setOrderId"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="orderId" type="java.lang.String">
+</parameter>
+</method>
+<method name="setPackageName"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="packageName" type="java.lang.String">
+</parameter>
+</method>
+<method name="setProductId"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="productId" type="java.lang.String">
+</parameter>
+</method>
+<method name="setPurchaseInfo"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="purchaseInfo" type="java.lang.String">
+</parameter>
+</method>
+<method name="setPurchaseState"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="purchaseState" type="int">
+</parameter>
+</method>
+<method name="setPurchaseTime"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="purchaseTime" type="long">
+</parameter>
+</method>
+<method name="setPurchaseToken"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="purchaseToken" type="java.lang.String">
+</parameter>
+</method>
+<field name="autoRenewing"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+<field name="dataSignature"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+<field name="developerPayload"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+<field name="orderId"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+<field name="packageName"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+<field name="productId"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+<field name="purchaseInfo"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+<field name="purchaseState"
+ type="int"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+<field name="purchaseTime"
+ type="long"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+<field name="purchaseToken"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+</field>
+</class>
+</package>
+<package name="com.github.windsekirun.inappbillingtest.tool"
+>
+<interface name="BackgroundExecutor"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="setTaskType"
+ return="com.github.windsekirun.inappbillingtest.tool.BackgroundExecutor"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="taskType" type="java.lang.String">
+</parameter>
+</method>
+<method name="setThreadPoolSize"
+ return="com.github.windsekirun.inappbillingtest.tool.BackgroundExecutor"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="poolSize" type="int">
+</parameter>
+</method>
+</interface>
+<class name="BackgroundThreadExecutor"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="com.github.windsekirun.inappbillingtest.tool.BackgroundExecutor">
+</implements>
+<constructor name="BackgroundThreadExecutor"
+ type="com.github.windsekirun.inappbillingtest.tool.BackgroundThreadExecutor"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="execute"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="command" type="java.lang.Runnable">
+</parameter>
+</method>
+<method name="setTaskType"
+ return="com.github.windsekirun.inappbillingtest.tool.BackgroundExecutor"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="taskType" type="java.lang.String">
+</parameter>
+</method>
+<method name="setThreadPoolSize"
+ return="com.github.windsekirun.inappbillingtest.tool.BackgroundExecutor"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="poolSize" type="int">
+</parameter>
+</method>
+<field name="settingPoolSize"
+ type="int"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="settingTaskType"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+</class>
+<class name="ExecutorId"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="ExecutorId"
+ type="com.github.windsekirun.inappbillingtest.tool.ExecutorId"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="threadPoolSize" type="int">
+</parameter>
+<parameter name="taskType" type="java.lang.String">
+</parameter>
+</constructor>
+</class>
+<class name="NaraeAsync"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="NaraeAsync"
+ type="com.github.windsekirun.inappbillingtest.tool.NaraeAsync"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="runnable" type="java.lang.Runnable">
+</parameter>
+</constructor>
+<constructor name="NaraeAsync"
+ type="com.github.windsekirun.inappbillingtest.tool.NaraeAsync"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="runnable" type="java.lang.Runnable">
+</parameter>
+<parameter name="poolSize" type="int">
+</parameter>
+</constructor>
+<constructor name="NaraeAsync"
+ type="com.github.windsekirun.inappbillingtest.tool.NaraeAsync"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="runnable" type="java.lang.Runnable">
+</parameter>
+<parameter name="taskType" type="java.lang.String">
+</parameter>
+</constructor>
+<constructor name="NaraeAsync"
+ type="com.github.windsekirun.inappbillingtest.tool.NaraeAsync"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="runnable" type="java.lang.Runnable">
+</parameter>
+<parameter name="poolSize" type="int">
+</parameter>
+<parameter name="taskType" type="java.lang.String">
+</parameter>
+</constructor>
+<method name="execute"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="execute"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="runnable" type="java.lang.Runnable">
+</parameter>
+<parameter name="poolsize" type="int">
+</parameter>
+<parameter name="tasktype" type="java.lang.String">
+</parameter>
+</method>
+</class>
+</package>
+</api>
