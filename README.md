@@ -4,6 +4,13 @@ Android In-app Billing Utils Library, based on v3
 ## Overview
 This library help to developer to integrate InAppBilling in just few minutes.
 
+## Usages
+```
+dependencies {
+  compile 'com.github.PyxisDev:InAppBillingUtils:1.1'
+}
+```
+
 ### Documents
 **[JavaDoc](https://pyxisdev.github.io/InAppBillingUtils/)**
 
