@@ -1,6 +1,10 @@
 # InAppBillingUtils
 Android In-app Billing Utils Library, based on v3
 
+## Deprecated! 
+
+This library will include utils of [RichUtilsKt](https://github.com/WindSekirun/RichUtilsKt)
+
 ## Overview
 This library help to developer to integrate InAppBilling in just few minutes.
 
